@@ -1,0 +1,16 @@
+services:
+  gate:
+    build: .
+    image: canary-gate:latest
+    container_name: canary-gate
+    ports:
+      - "8000:8000"
+    environment:
+      # SQLite 数据库文件位置（位于挂载卷内，容器重建不丢数据）
+      GATE_DB_PATH: /data/gate.db
+    volumes:
+      - gate-data:/data
+    restart: unless-stopped
+
+volumes:
+  gate-data:
